@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON 数据显示示例</title>
+</head>
+<body>
+  <h1>公告列表</h1>
+  <ul id="announce-list"></ul>
+
+  <script>
+    // 使用JavaScript获取JSON数据
+    fetch('https://akcdn.imtxwy.com/announce/Android/announcement.meta.json')
+      .then(response => response.json())
+      .then(data => {
+        const announceList = data.announceList;
+
+        // 使用循环创建列表项并添加到页面
+        announceList.forEach(announce => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = announce.webUrl;
+          link.textContent = announce.title;
+          listItem.appendChild(link);
+          document.getElementById('announce-list').appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error('获取JSON数据时出错：', error);
+      });
+  </script>
+</body>
+</html>
